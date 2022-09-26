@@ -14,6 +14,10 @@ const blogSchema = mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  CommentsCheck1: [String],
+  CommentsCheck2: [{ name: String }],
+  CommentsCheck3: [{ name: String, description: String, email: String }],
+  CommentsCheck4: [{ name: String, description: String, email: String }],
 });
 
 var BlogPost = mongoose.model("BlogArticle", blogSchema);

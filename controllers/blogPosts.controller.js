@@ -44,7 +44,7 @@ const getSinglePost = async (req, res) => {
 
 const updateSingleBlogPost = async (req, res) => {
   const { id } = req.params;
-  const { title, description, creator, fileUpload, tags } = req.body;
+  const { title, description, creator, fileUpload, tags, comment } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`post ${id} not found`);
@@ -89,6 +89,84 @@ const likeBlogPost = async (req, res) => {
   res.json(updatedBlogPost);
 };
 
+const commentsCheck1BlogPost = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+
+  const post = await BlogPost.findById(id);
+  console.log([...post.CommentsCheck1]);
+  const updatedBlogPost = await BlogPost.findByIdAndUpdate(
+    id,
+    { CommentsCheck1: [...post.CommentsCheck1, "Something"] },
+    { new: true }
+  );
+
+  res.json(updatedBlogPost);
+};
+
+const commentsCheck2BlogPost = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+
+  const post = await BlogPost.findById(id);
+  console.log([...post.CommentsCheck2]);
+  const updatedBlogPost = await BlogPost.findByIdAndUpdate(
+    id,
+    { CommentsCheck2: [...post.CommentsCheck2, { name: "Durgesh" }] },
+    { new: true }
+  );
+
+  res.json(updatedBlogPost);
+};
+
+const commentsCheck3BlogPost = async (req, res) => {
+  const { id } = req.params;
+  const { name, description, email } = req.body;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+
+  const post = await BlogPost.findById(id);
+  console.log([...post.CommentsCheck3]);
+  const updatedBlogPost = await BlogPost.findByIdAndUpdate(
+    id,
+    {
+      CommentsCheck3: [
+        ...post.CommentsCheck3,
+        { name: name, description: description, email: email },
+      ],
+    },
+    { new: true }
+  );
+
+  res.json(updatedBlogPost);
+};
+
+const commentsCheck4BlogPost = async (req, res) => {
+  const { id } = req.params;
+  const { name, description, email } = req.body;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+
+  const post = await BlogPost.findById(id);
+  console.log([...post.CommentsCheck4]);
+  const updatedBlogPost = await BlogPost.findByIdAndUpdate(
+    id,
+    {
+      CommentsCheck4: [
+        ...post.CommentsCheck4,
+        { name: name, description: description, email: email },
+      ],
+    },
+    { new: true }
+  );
+
+  res.json(updatedBlogPost);
+};
+
 module.exports = {
   getAllBlogPosts,
   addBlogPost,
@@ -96,4 +174,8 @@ module.exports = {
   updateSingleBlogPost,
   removeSingleBlogPost,
   likeBlogPost,
+  commentsCheck1BlogPost,
+  commentsCheck2BlogPost,
+  commentsCheck3BlogPost,
+  commentsCheck4BlogPost,
 };
